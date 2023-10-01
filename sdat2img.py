@@ -3,19 +3,18 @@
 #====================================================
 #          FILE: sdat2img.py
 #       AUTHORS: xpirt - luxi78 - howellzhu
-#          DATE: 2018-10-27 10:33:21 CEST
+#          DATE: 2023-08-28 10:33:21 CEST
 #====================================================
 
-from __future__ import print_function
 import sys, os, errno
 
 def main(TRANSFER_LIST_FILE, NEW_DATA_FILE, OUTPUT_IMAGE_FILE):
     __version__ = '1.2'
 
     if sys.hexversion < 0x02070000:
-        print >> sys.stderr, "Python 2.7 or newer is required."
+        print("Python 2.7 or newer is required.", file=sys.stderr)
         try:
-            input = raw_input
+            input = input()
         except NameError: pass
         input('Press ENTER to exit...')
         sys.exit(1)
@@ -31,7 +30,7 @@ def main(TRANSFER_LIST_FILE, NEW_DATA_FILE, OUTPUT_IMAGE_FILE):
 
         return tuple ([ (num_set[i], num_set[i+1]) for i in range(1, len(num_set), 2) ])
 
-    def parse_transfer_list_file(path):
+    def parse_transfer_list_file(TRANSFER_LIST_FILE):
         trans_list = open(TRANSFER_LIST_FILE, 'r')
 
         # First line in transfer list is the version number
@@ -76,7 +75,7 @@ def main(TRANSFER_LIST_FILE, NEW_DATA_FILE, OUTPUT_IMAGE_FILE):
     elif version == 4:
         print('Android Nougat 7.x / Oreo 8.x detected!\n')
     else:
-        print('Unknown Android version!\n')
+        print('Unknown Android version! {}\n'.format(version))
 
     # Don't clobber existing files to avoid accidental data loss
     try:
@@ -130,7 +129,7 @@ if __name__ == '__main__':
         print('    [system_img]: output system image\n\n')
         print('Visit xda thread for more information.\n')
         try:
-            input = raw_input
+            input = input()
         except NameError: pass
         input('Press ENTER to exit...')
         sys.exit()
